@@ -99,3 +99,50 @@ graph TD
     AA --> BB[종료];
 
 ```
+```mermaid
+
+mindmap
+  root((부동산 실거래가 데이터 수집기))
+    통신 오류 해결
+      Tls12Adapter 클래스
+        init_poolmanager
+          - TLS 1.2 강제
+          - SECLEVEL=1 강제
+        proxy_manager_for
+          - 프록시 환경 지원
+    환경 설정
+      .env 파일 로드
+        - SERVICE_KEY 불러오기
+      API_URL 정의
+        - 공공데이터포털 API
+    메인 로직 (if __name__ == "__main__")
+      프로그램 시작 메시지 출력
+      사용자 입력 받기
+        - 계약년월 (YYYYMM)
+        - 지역 코드 (법정동 5자리)
+      입력값 유효성 검사
+        - 입력이 없으면 기본값 사용
+      데이터 수집 함수 호출
+        - collect_real_estate_data(year_month, region_code)
+    데이터 수집 함수 (collect_real_estate_data)
+      요청 파라미터 설정
+        - serviceKey, LAWD_CD, DEAL_YMD, numOfRows
+      API 호출
+        - requests.Session 사용
+        - Tls12Adapter 마운트
+        - 예외 처리 (RequestException)
+      응답 처리
+        - pandas.read_xml로 DataFrame 생성
+        - 예외 처리 (XML 변환 오류)
+      데이터 정제
+        - DataFrame 비어있는지 확인
+        - "필수 아닌 컬럼, jibun, excluUseAr 등 기본값 채우기
+        - 데이터 타입 변환 (dealAmount, int_cols, str_cols)
+        - 컬럼명 변경 (DB 형식에 맞게)
+      파일 저장
+        - 'data' 폴더 생성 (없을 경우)
+        - DataFrame을 CSV 파일로 저장
+        - 저장 성공 메시지 출력
+
+```
+
