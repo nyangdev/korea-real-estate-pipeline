@@ -5,6 +5,8 @@ https://www.data.go.kr/data/15126469/openapi.do
 <img width="684" height="457" alt="image" src="https://github.com/user-attachments/assets/d26ad642-c2b0-4366-9d38-048e91b9d030" />
 <img width="490" height="704" alt="image" src="https://github.com/user-attachments/assets/1cf5651b-076f-46de-a3d7-66ad73a16fb9" />
 
+### 다이어그램
+
 ```mermaid
 
 sequenceDiagram
@@ -62,6 +64,9 @@ sequenceDiagram
     P->>P: 프로그램 종료
 
 ```
+
+<br></br>
+
 ```mermaid
 
 graph TD
@@ -99,6 +104,8 @@ graph TD
     AA --> BB[종료];
 
 ```
+<br></br>
+
 ```mermaid
 
 mindmap
