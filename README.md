@@ -65,6 +65,52 @@ sequenceDiagram
 
 ```
 
+``` mermaid
+flowchart TD
+    A["문제 현상 정의<br/>SSLError 발생 및 API 호출 실패"]
+
+    subgraph H["가설 수립 및 검증"]
+        direction TB
+
+        H1{"가설 1<br/>API 키가 잘못되었는가?"}
+        H1 -->|브라우저 테스트| H1R["키 정상 확인"]
+        H1R --> H1X(("기각"))
+
+        H2{"가설 2<br/>파이썬 라이브러리가 낡았는가?"}
+        H2 -->|conda 환경 재생성·라이브러리 업데이트| H2R["문제 지속"]
+        H2R --> H2X(("실패"))
+
+        H3{"가설 3<br/>시스템/WSL 환경 문제인가?"}
+        H3 -->|시스템 전체 업데이트·보안 정책 수정| H3R["문제 지속"]
+        H3R --> H3X(("실패"))
+
+        H4{"가설 4<br/>네트워크 프록시/인증서 문제인가?"}
+        H4 -->|certifi 인증서 적용| H4R["문제 지속"]
+        H4R --> H4X(("실패"))
+    end
+
+    C["원인 분석 및 특정<br/>최신 클라이언트 ↔ 구형 API 서버<br/>TLS 프로토콜 불일치"]
+    S["해결책 적용<br/>코드에서 TLS 1.2 강제 → 정상 동작"]
+
+    A --> H1
+    H1X --> H2
+    H2X --> H3
+    H3X --> H4
+    H4X --> C
+    C --> S
+
+    %% 스타일
+    classDef reject fill:#ffd9d9,stroke:#c33,stroke-width:1px,color:#600;
+    classDef ok fill:#d9f4ff,stroke:#09c,stroke-width:1px,color:#024;
+    classDef root fill:#fff4cc,stroke:#b90,stroke-width:1px,color:#5a3;
+    classDef fix fill:#e6ffe6,stroke:#2a8,stroke-width:1px,color:#064;
+
+    class H1X,H2X,H3X,H4X reject
+    class H1R ok
+    class C root
+    class S fix
+```
+
 <br></br>
 
 ```mermaid
